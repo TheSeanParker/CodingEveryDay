@@ -1,4 +1,6 @@
 #include <iostream>
+//在类内private的地方进行定义变量，
+//在类的构造函数里面进行初始化变量
     class Queue
     {
         enum{Q_SIZE=10};//思考为什么打开括号就是不行的？
@@ -9,10 +11,10 @@
         {
             int item;
             struct Node* next;};
-    Node* front;
-    Node* rear;
-    int items;
-    const int qsize;//const成员必须初始化
+        Node* front;
+        Node* rear;
+        int items;
+        const int qsize;//const成员必须初始化
     public:
         Queue(int qs=Q_SIZE);
         bool isempty() const;
@@ -20,9 +22,15 @@
         bool enqueue(const int& item);
         bool dequeue(      int& item);
         int queuecount() const;
-        ~Queue();};
+        ~Queue();
+        friend void abc(Queue& a)
+        {
+          //友元函数在此处通过a访问类内的私有变量
+        }
+    };
     Queue::Queue(int qs)//构造函数完成成员变量的初始化
             :qsize(qs),front(nullptr),rear(nullptr),items(0){}
+            
         bool Queue::isempty() const//尾部加上const是限制this指针，表示类的成员变量都不可以改变
         {return items==qsize;}
         bool Queue::isfull () const
@@ -68,5 +76,6 @@
     {}
 int main(int argc, char const *argv[])
 {
+    Queue q;
     return 0;
 }
