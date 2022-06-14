@@ -2,7 +2,8 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-//下面算法的关键问题只有一个，就backtrack()函数是什么时候停止的？
+//下面算法的关键问题只有一个，就backtrack()函数是什么时候停止
+//下面还可以拓展，就是如果全排列，要求0不能放在队列的头部，或者某个数字不能放在头部，怎么处理？
 class Solution 
 {
 public:
