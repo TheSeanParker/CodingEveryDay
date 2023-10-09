@@ -1,0 +1,1 @@
+g++   abc.cpp  test.cpp -o zhangpan  -Wall
