@@ -8,24 +8,22 @@ int main(int argc, char const *argv[])
                int a;
                bool b;
           };
+          int* test;
           str* ptr;
-      //     ptr=nullptr;
+          ptr=nullptr;
           int C=9;
           str demo;
           ptr=&demo;
           // 必须要有上面的步骤,是因为,否则这个ptr指针还不清楚这个结构体到底是什么形式的!
           // 所以无法对它内部的元素进行赋值或其他操作
           ptr->a=C*2;
-        //   ptr->a=&b;//一定是这样是对的,而不是*ptr=b;这样的写法是错误的!
-          std::cout<<"ptr->a="<<ptr->a<<std::endl;
-          if (ptr==nullptr)
-          {
-                std::cout<<"NULLPTR";
-          }
-          else
-          {
-                std::cout<<"ptr="<<ptr;
-          }
-          
+          test=&C;
+          std::cout<<"*test="<<*test<<std::endl;
+          *test=2*C;
+          std::cout<<"*test"<<*test<<std::endl;
+
+          if (nullptr){std::cout<<"nullptr!=0"; }
+          else{std::cout<<"nullptr=0"<<ptr;}
+
           return 0;
 }
