@@ -18,6 +18,8 @@
 #include <gtsam/slam/PriorFactor.h>
 #include <Eigen/Dense>
 #include <fstream>
+
+#include <gtsam/nonlinear/Values.h>
 using namespace std;
 using namespace gtsam;
 
@@ -96,7 +98,6 @@ int main(int argc, char* argv[]) {
             auto pose_i = scenario.pose(t);
             initialEstimate.insert(X(i), pose_i);
           }
-          initialEstimate.print("in for----------------");
           // 添加IMU因子和IMU偏差因子
         if (i > 0) 
         {
@@ -133,7 +134,12 @@ int main(int argc, char* argv[]) {
 
                 // 将速度的初始值加入初始值集合，注意，这里加入的是GroundTruth的速度，只是为了做示例
                 initialEstimate.insert(V(i), linear_velocity_vector);
-                initialEstimate.print("end ----------------");
+                cout<<"X(0)="<<X(0)<<endl;
+                cout<<"B(0)="<<B(0)<<endl;
+                auto iter=initialEstimate.begin();
+                cout<<"begin iter->key="<<(iter->key)<<endl; // 这个打印的是后面的imuBias::ConstantBias类型
+                iter->value.print("&&&&&&&&&&&&&&&&&");/** Print this value, for debugging and unit tests */
+
                 // accum.resetIntegration();// 重置IMU预积分器 Re-initialize PreintegratedIMUMeasurements. 
       }
           // isam.update(newgraph, initialEstimate);
