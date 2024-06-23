@@ -1,6 +1,6 @@
 #include <iostream>
 #include <map>
-
+#include <utility>
 using std::cout;
 using std::cin;
 using std::endl;
@@ -20,6 +20,10 @@ cout<<"tempMap[1]="<<tempMap[10]<<endl;
     // for (const auto &item : tempMap) {
     //     cout << "[" << item.first << "," << item.second << "]\n";
     // }
+    tempMap.insert(std::make_pair(8, "Jack"));
+   auto iter_1= tempMap.begin();
+   cout<<"输出 first="<<(iter_1->first)<<endl;
+   cout<<"输出 second="<<(iter_1->second)<<endl;
     for (auto iter = tempMap.begin(); iter != tempMap.end(); ++iter){
         cout << "[" << iter->first << ","
                     << iter->second << "]\n";

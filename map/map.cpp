@@ -26,7 +26,7 @@ int main()
     m["CPU"] = 25; // update an existing value
     m["SSD"] = 30; // insert a new value
     print_map("2) Updated map: ", m);
- 
+     
     // using operator[] with non-existent key always performs an insert
     std::cout << "3) m[UPS] = " << m["UPS"] << '\n';
     print_map("4) Updated map: ", m);
