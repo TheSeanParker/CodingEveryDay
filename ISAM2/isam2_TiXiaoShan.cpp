@@ -121,7 +121,11 @@ int main()
                }
                cout<<"2------------------------graph.size() ="<<graph.size()<<std::endl;
                isam2.update(graph, initialEstimate);
+               isam2.update();
 
+               graph.resize(0);
+               initialEstimate.clear();
+               
                Values currentEstimate = isam2.calculateEstimate();//这个估计出来数据,但不会显式打印出来
                cout << "****************************************************" << endl;
                cout <<"iter num="<<std::endl;
@@ -130,8 +134,7 @@ int main()
                 //    print out graph 
                 //    ISAM2::update_count_;
                currentEstimate.print("Current estimate: ");
-               graph.resize(0);
-               initialEstimate.clear();
+
                // Clear the factor graph and values for the next iteration
                // 特别重要，update以后，清空原来的约束。已经加入到isam2的那些会用bayes tree保管，你不用操心了。
            }
