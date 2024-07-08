@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
 // 下面是A旋转45度
 gtsam::Pose3 A =gtsam::Pose3(gtsam::Rot3(0.9238, 0, 0, 0.3826), gtsam::Point3(0, 0, 0));
 // 下面是B旋转45度
-gtsam::Pose3 B =gtsam::Pose3(gtsam::Rot3(0.9238, 0, 0, 0.3826), gtsam::Point3(0, 0, 1));
+gtsam::Pose3 B =gtsam::Pose3(gtsam::Rot3(0.9238, 0, 0, 0.3826), gtsam::Point3(0, 0, 0));
 
   auto com  = A.compose(B);
   auto betw = A.between(B);
