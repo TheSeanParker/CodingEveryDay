@@ -12,7 +12,7 @@ float pointDistance(PointT p1, PointT p2)
 int main()
 {
     pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud<PointT>);
-    pcl::io::loadPCDFile("GlobalMap.pcd", *cloud);
+    pcl::io::loadPCDFile("threePointPCDMap.pcd", *cloud);
 
     // 定义KDTree对象
     pcl::search::KdTree<PointT>::Ptr kdtree(new pcl::search::KdTree<PointT>);
