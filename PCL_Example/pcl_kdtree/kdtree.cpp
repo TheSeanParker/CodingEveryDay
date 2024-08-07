@@ -24,13 +24,27 @@ int main()
     // 查询距point最近的k个点
     int k = 10;
     int size = kdtree->nearestKSearch(point, k, indices, distances);
-    std::cout << "nearestKSearch point size(): " << size << std::endl;
+    std::cout << "nearestKSearch point size():=" << size << std::endl;
+    std::cout << "***************************************** " << std::endl;
     // 判断一下查询到的第一个点和给定的第一个点,是不是同一个点
-    std::cout << "nearestKSearch  distances[0]= " << distances[0]<< std::endl;
-    std::cout << "nearestKSearch  distances[1]= " << distances[1]<< std::endl;
-    std::cout << "nearestKSearch  distances[2]= " << distances[2]<< std::endl;
-    std::cout << "nearestKSearch radiusSearchfirst cloud->points[indices[0]]= " << cloud->points[indices[0]]<< std::endl;
-    std::cout << "nearestKSearch radiusSearchfirst cloud->points[indices[1]]= " << cloud->points[indices[1]]<< std::endl;
+    // 下面的for循环最好是使用返回的size，但是用k的话，会出现访问点云点下标超过找到点云点个数的情况
+    size_t count=k;
+
+    for (size_t i = 0; i < count; i++)
+    {
+       std::cout << "nearestKSearch  distances["<<i<<"]= " << distances[i]<< std::endl;
+    }
+    std::cout << "***************************************** " << std::endl;
+    for (size_t i = 0; i < count; i++)
+    {
+       std::cout << "nearestKSearch  indices["<<i<<"]= " << indices[i]<< std::endl;
+    }
+    std::cout << "***************************************** " << std::endl;
+    // for (size_t i = 0; i < count; i++)
+    // {
+    //    std::cout << "nearestKSearch radiusSearchfirst cloud->points[indices["<<i<<"]]= " << cloud->points[indices[i]]<< std::endl;
+    // }
+    
     float distances_01=pointDistance(cloud->points[0],cloud->points[indices[1]]);
     std::cout <<setprecision(12)<< "distances_01= " << distances_01<< std::endl;
 
@@ -48,6 +62,6 @@ int main()
     std::cout << "radiusSearch first point indices(0)= " << indices[0] << std::endl;
     std::cout << "radiusSearch second point indices(1)= " << indices[1]<< std::endl;
     std::cout << "radiusSearch second point indices(2)= " << indices[2]<< std::endl;
-    system("pause");
+    // system("pause");
     return 0;
 }
