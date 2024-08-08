@@ -8,8 +8,8 @@ include_directories(
     ${PCL_INCLUDE_DIRS}
 )
 
-# add_executable(test test.cpp )
-# target_link_libraries(test ${PCL_LIBRARIES})
+add_executable(test test.cpp )
+target_link_libraries(test ${PCL_LIBRARIES})
 
 add_executable(get_id_test get_id_test.cpp )
 target_link_libraries(get_id_test ${Boost_LIBRARIES})

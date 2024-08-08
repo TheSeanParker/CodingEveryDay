@@ -6,16 +6,15 @@ using namespace std;
 void worker_thread_func()
 {
 	 static int a=0;
-	 a++;
 	 cout<<"a="<<a<<endl;
 	 while(a<4)
 	 {
-        cout<<"cut in the thread"<<endl;
+		 a++;
+        cout<<"cut in the thread a="<<a<<endl;
 	 }
 }
 int main()
 {
-
 	//获取主线程的线程 ID
 	std::thread::id main_thread_id = std::this_thread::get_id();
  	//先将 std::thread::id 转换成 std::ostringstream 对

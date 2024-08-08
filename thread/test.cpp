@@ -3,7 +3,12 @@
 using namespace std;
 void process()
 {
-    cout<<"cut in process()"<<endl;
+    static int a=1;
+    while (a<5)
+    {
+        a++;
+        cout<<"cut in process() a="<<a<<endl;
+    }   
 }
 int main(int argc, char **argv)
 {
