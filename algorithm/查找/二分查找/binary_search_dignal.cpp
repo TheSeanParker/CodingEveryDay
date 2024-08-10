@@ -1,35 +1,46 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-int solution(const vector<int>& test,int& target_)
+int solution(const vector<int>& nums,int& target)
 {
-    for (size_t i = 0; i < test.size(); i++)
-    {
-        if (test[i]==target_)
+    int start=0;
+        int end =nums.size();
+        for (int i = start; i < end; i++)
         {
-            return i;
+            if (nums[i]==target)
+            {
+                return i;
+            }
+            if (nums[end/2]<target)// 先假设整个队列的数目全是偶数
+            {
+                start=(end/2+1);
+            }
+            else
+            {
+                end=end/2+1;
+            }
         }
-    }
-    return -1;
+         return -1;
 }
-
 int main()
 {
     vector<int> inputvec;
-    int count=10;
+    int count=6;
     int temp;
     int target;
     cin>>target;
-    cout<<"输入待查数字完毕"<<endl;
+    std::cout<<"输入待查数字完毕"<<endl;
+
     for (size_t i = 0; i < count; i++)
     {
        cin>>temp;
        inputvec.push_back(temp);
     }
-    cout<<"输入数字串完毕"<<endl;
+    std::cout<<"输入数字串完毕"<<endl;
+
     for (size_t i = 0; i < count; i++)
     {
-        cout<<inputvec[i];
+        std::cout<<inputvec[i];
     }
     int index=solution(inputvec,target);
     if (index==-1)
