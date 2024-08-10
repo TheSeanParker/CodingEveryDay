@@ -13,19 +13,22 @@ int solution(const vector<char>& test,char& target_)
     return -1;
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
     vector<char> inputvec;
     int count=10;
     char temp;
     char target;
     cin>>target;
+    cout<<"输入待查完毕"<<endl;
     for (size_t i = 0; i < count; i++)
     {
        cin>>temp;
        inputvec.push_back(temp);
+       cout<<"i="<<i<<endl;
+       cout<<"inputvec.size()="<<inputvec.size()<<endl;
     }
-
+    cout<<"输入字符串完毕"<<endl;
     for (size_t i = 0; i < count; i++)
     {
         cout<<inputvec[i];
