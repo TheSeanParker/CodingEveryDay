@@ -4,19 +4,24 @@
 using namespace std;
 int minSubArrayLen(int target, vector<int>& nums) {
 
-	int sum;
+	int sum=0;
 	int subLength = 0;
 	int result = INT32_MAX;  // 或者 int result = numsSize + 1;
     int size=nums.size();
+    int  j=0;
     for (size_t i = 0; i < size; i++)
     {
-        cout<<"nums[i++]="<<nums[i++]<<endl;
+        sum+=nums[i];
+        while (sum>=target)
+        {
+            subLength=i-j+1;
+            result=(result>subLength)?subLength:result;
+            sum-=nums[j++];
+        }
     }
-        for (size_t j = 0; j < size; j++)
-    {
-        cout<<"nums[++j]="<<nums[++j]<<endl;//当时就生效
-    }
-    return 0;
+        result=(result==INT32_MAX)?0:result;
+        return result;
+        
 }
 
 int main(int argc, char const *argv[])
