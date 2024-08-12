@@ -14,6 +14,7 @@ struct ListNode{
 int main(){
 	int num;
 	cin >> num;
+	//初始化一个空表
 	ListNode* head = new ListNode(num);
 	ListNode* p = head;
 	
@@ -24,9 +25,8 @@ int main(){
 		p->next = q; 
 		p = q;
 	}
-
-    //最后还差一个尾节点的空指针，其实这个在构造函数里，已经有体现出来了
-	//遍历这个链表，并输出每个结点的元素
+    // 最后还差一个尾节点的空指针，其实这个在构造函数里，已经有体现出来了
+	// 遍历这个链表，并输出每个结点的元素
 	ListNode* m = head;
 	while (m != nullptr){
 		cout << m->val << endl;
