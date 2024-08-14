@@ -8,14 +8,13 @@ int main(int argc, char const *argv[])
 {
     /* code */
     vector<int> ivec;
-    for (size_t i = 0; i !=5; i++)
+    for (size_t i = 0; i !=3; i++)
     {
       ivec.push_back(i);
       ivec.push_back(i);
     }
     set<int> iset(ivec.cbegin(),ivec.cend());
     multiset<int> miset(ivec.cbegin(),ivec.cend());
-    multimap<int> mimap((ivec.cbegin(),ivec.cend()),"appel");
 
     cout<<"vector size()="<<ivec.size()<<endl;
     cout<<"set size()="<<iset.size()<<endl;
