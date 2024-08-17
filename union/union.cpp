@@ -39,6 +39,8 @@ union
     float x;
     float y;
     float z;
+    char d;
+    bool e;
   };
 }PointXYZ;
 int main(int argc, char const *argv[])
@@ -47,5 +49,6 @@ int main(int argc, char const *argv[])
           std::cout<<"size="<<sizeof(fighter)<<std::endl;
           std::cout<<"test2="<<sizeof(test2)<<std::endl;
           std::cout<<"test3="<<sizeof(test3)<<std::endl;
+	 std::cout<<"PointXYZ="<<sizeof(PointXYZ)<<std::endl;
           return 0;
 }
