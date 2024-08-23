@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+project(GICP_exp)
+find_package(PCL REQUIRED)
+find_package(Boost REQUIRED COMPONENTS thread)
+add_executable (GICP_exp GICP_exp.cpp)
+target_link_libraries (GICP_exp  ${PCL_LIBRARIES} ${Boost_LIBRARIES})
