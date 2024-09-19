@@ -73,7 +73,6 @@ int main()
 	matcher.match(descriptors1,descriptors2, matches);
 
 	std::cout << "Number of matched points: " << matches.size() << std::endl;
-
 	// Manually select few Matches  
 	std::vector<cv::DMatch> selMatches;
 
@@ -91,7 +90,7 @@ int main()
 	cv::drawMatches(image1,keypoints1,  // 1st image and its keypoints
 		            image2,keypoints2,  // 2nd image and its keypoints
 					selMatches,			// the selected matches
-//					matches,			// the matches
+    //					matches,			// the matches
 					imageMatches,		// the image produced
 					cv::Scalar(255,255,255),
 					cv::Scalar(255,255,255),

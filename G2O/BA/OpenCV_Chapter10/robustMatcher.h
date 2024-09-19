@@ -28,36 +28,30 @@ Copyright (C) 2016 Robert Laganiere, www.laganiere.name
 #include <opencv2/calib3d.hpp>
 #include <opencv2/xfeatures2d.hpp>
 
-#define NOCHECK      0
+#define NOCHECK           0
 #define CROSSCHECK   1
-#define RATIOCHECK   2
-#define BOTHCHECK    3
+#define RATIOCHECK     2
+#define BOTHCHECK     3
 
 class RobustMatcher {
-
   private:
-
 	  // pointer to the feature point detector object
 	  cv::Ptr<cv::FeatureDetector> detector;
 	  // pointer to the feature descriptor extractor object
 	  cv::Ptr<cv::DescriptorExtractor> descriptor;
 	  int normType;
-	  float ratio; // max ratio between 1st and 2nd NN
+	  float ratio;     // max ratio between 1st and 2nd NN
 	  bool refineF; // if true will refine the F matrix
 	  bool refineM; // if true will refine the matches (will refine F also)
 	  double distance; // min distance to epipolar
 	  double confidence; // confidence level (probability)
 
   public:
-
-	  RobustMatcher(const cv::Ptr<cv::FeatureDetector> &detector, 
-		            const cv::Ptr<cv::DescriptorExtractor> &descriptor= cv::Ptr<cv::DescriptorExtractor>())
-		  : detector(detector), descriptor(descriptor),normType(cv::NORM_L2), 
-		    ratio(0.8f), refineF(true), refineM(true), confidence(0.98), distance(1.0) {	  
-
+	  RobustMatcher(const cv::Ptr<cv::FeatureDetector>&detector, const cv::Ptr<cv::DescriptorExtractor>&descriptor=cv::Ptr<cv::DescriptorExtractor>())
+	    : detector(detector), descriptor(descriptor),normType(cv::NORM_L2), ratio(0.8f), refineF(true), refineM(true), confidence(0.98), distance(1.0) {	  
 		// in this case use the associated descriptor
 		if (!this->descriptor) { 
-			this->descriptor = this->detector;
+			   this->descriptor = this->detector;
 		} 
 	  }
 
@@ -113,27 +107,23 @@ class RobustMatcher {
 	  // return the number of removed points 
 	  // (corresponding entries being cleared, i.e. size will be 0)
       int ratioTest(const std::vector<std::vector<cv::DMatch> >& inputMatches,
-		            std::vector<cv::DMatch>& outputMatches) {
+		            			std::vector<cv::DMatch>& outputMatches) {
 
 		int removed=0;
 
         // for all matches
         for (std::vector<std::vector<cv::DMatch> >::const_iterator matchIterator= inputMatches.begin();
-			 matchIterator!= inputMatches.end(); ++matchIterator) {
-				 
+			   matchIterator!= inputMatches.end(); ++matchIterator) {
 				 //   first best match/second best match
 				 if ((matchIterator->size() > 1) && // if 2 NN has been identified 
 					 (*matchIterator)[0].distance/(*matchIterator)[1].distance < ratio) {
-			
 					 // it is an acceptable match
 					 outputMatches.push_back((*matchIterator)[0]);
-
-				 } else {
-
+				 } 
+				 else {
 					 removed++;
 				 }
 		}
-
 		return removed;
 	  }
 
@@ -179,30 +169,25 @@ class RobustMatcher {
 		removed= ratioTest(matches2,ratioMatches2);
 		std::cout << "Number of matched points 1->2 (ratio test) : " << ratioMatches2.size() << std::endl;
 
-		// Remove non-symmetrical matches
+		// Remove non-symmetrical matches，移除掉不对称的匹配
 		symmetryTest(ratioMatches1,ratioMatches2,outputMatches);
-
 		std::cout << "Number of matched points (symmetry test): " << outputMatches.size() << std::endl;
 	  }
 
 	  // Identify good matches using RANSAC
 	  // Return fundamental matrix and output matches
 	  cv::Mat ransacTest(const std::vector<cv::DMatch>& matches,
-		                 std::vector<cv::KeyPoint>& keypoints1, 
-						 std::vector<cv::KeyPoint>& keypoints2,
-					     std::vector<cv::DMatch>& outMatches) {
-
-		// Convert keypoints into Point2f	
-		std::vector<cv::Point2f> points1, points2;	
-
-		for (std::vector<cv::DMatch>::const_iterator it= matches.begin();
-			 it!= matches.end(); ++it) {
-
-			 // Get the position of left keypoints
-			 points1.push_back(keypoints1[it->queryIdx].pt);
-			 // Get the position of right keypoints
-			 points2.push_back(keypoints2[it->trainIdx].pt);
-	    }
+											std::vector<cv::KeyPoint>& keypoints1, 
+											std::vector<cv::KeyPoint>& keypoints2,
+											std::vector<cv::DMatch>& outMatches) 
+     {     // Convert keypoints into Point2f	
+			std::vector<cv::Point2f> points1, points2;	
+			for (std::vector<cv::DMatch>::const_iterator it= matches.begin(); it!= matches.end(); ++it) {
+				// Get the position of left keypoints
+				points1.push_back(keypoints1[it->queryIdx].pt);
+				// Get the position of right keypoints
+				points2.push_back(keypoints2[it->trainIdx].pt);
+			}
 
 			// Compute F matrix using RANSAC
 			std::vector<uchar> inliers(points1.size(),0);
@@ -219,25 +204,21 @@ class RobustMatcher {
 		std::vector<cv::DMatch>::const_iterator itM= matches.begin();
 		// for all matches
 		for ( ;itIn!= inliers.end(); ++itIn, ++itM) {
-
-			if (*itIn) { // it is a valid match
-
+			if (*itIn) {  // it is a valid match
 				outMatches.push_back(*itM);
 			}
 		}
 
 		if (refineF || refineM) {
-		// The F matrix will be recomputed with all accepted matches
-
+		   // The F matrix will be recomputed with all accepted matches
 			// Convert keypoints into Point2f for final F computation	
 			points1.clear();
 			points2.clear();
 	
 			for (std::vector<cv::DMatch>::const_iterator it= outMatches.begin();
 				 it!= outMatches.end(); ++it) {
-
 				 // Get the position of left keypoints
-				 points1.push_back(keypoints1[it->queryIdx].pt);
+				 points1.push_back(keypoints1[it->queryIdx].pt); //point的缩写
 				 // Get the position of right keypoints
 				 points2.push_back(keypoints2[it->trainIdx].pt);
 			}
@@ -248,24 +229,24 @@ class RobustMatcher {
 				cv::FM_8POINT); // 8-point method
 
 			if (refineM) {
-
 				std::vector<cv::Point2f> newPoints1, newPoints2;	
 				// refine the matches
-				correctMatches(fundamental,             // F matrix
-					           points1, points2,        // original position
-							   newPoints1, newPoints2); // new position
+				correctMatches(fundamental,             			 // InputArray F matrix
+					           					 points1, points2,     			      // InputArray original position
+							   					 newPoints1, newPoints2); // OutputArray new position
+				std::cout  << "***points1.size()=" << points1.size()<<std::endl; // 56
 				for (int i=0; i< points1.size(); i++) {
-
-					std::cout << "(" << keypoints1[outMatches[i].queryIdx].pt.x 
-						      << "," << keypoints1[outMatches[i].queryIdx].pt.y 
-							  << ") -> ";
+             
+					std::cout  << "(" << keypoints1[outMatches[i].queryIdx].pt.x 
+										<< "," << keypoints1[outMatches[i].queryIdx].pt.y 
+										<< ") -> ";
 					std::cout << "(" << newPoints1[i].x 
-						      << "," << newPoints1[i].y << std::endl;
+						    		   << "," << newPoints1[i].y << std::endl;
 					std::cout << "(" << keypoints2[outMatches[i].trainIdx].pt.x 
-						      << "," << keypoints2[outMatches[i].trainIdx].pt.y 
-							  << ") -> ";
+						     		   << "," << keypoints2[outMatches[i].trainIdx].pt.y 
+							 		   << ") -> ";
 					std::cout << "(" << newPoints2[i].x 
-						      << "," << newPoints2[i].y << std::endl;
+						      		   << "," << newPoints2[i].y << std::endl;
 
 					keypoints1[outMatches[i].queryIdx].pt.x= newPoints1[i].x;
 					keypoints1[outMatches[i].queryIdx].pt.y= newPoints1[i].y;
@@ -279,31 +260,32 @@ class RobustMatcher {
 
 	  // Match feature points using RANSAC
 	  // returns fundamental matrix and output match set
-	  cv::Mat match(cv::Mat& image1, cv::Mat& image2, // input images 
-		  std::vector<cv::DMatch>& matches, // output matches and keypoints
-		  std::vector<cv::KeyPoint>& keypoints1, std::vector<cv::KeyPoint>& keypoints2,
-		  int check=CROSSCHECK) {  // check type (symmetry or ratio or none or both)
-
-		// 1. Detection of the feature points
+	  cv::Mat match(cv::Mat& image1, // input images 
+	  								cv::Mat& image2, // input images 
+									std::vector<cv::DMatch>& matches,  // output matches and keypoints
+									std::vector<cv::KeyPoint>& keypoints1, 
+									std::vector<cv::KeyPoint>& keypoints2,
+									int check=CROSSCHECK)    // check type (symmetry or ratio or none or both)
+      { // 1. Detection of the feature points,提取特征点
 		detector->detect(image1,keypoints1);
 		detector->detect(image2,keypoints2);
 
 		std::cout << "Number of feature points (1): " << keypoints1.size() << std::endl;
 		std::cout << "Number of feature points (2): " << keypoints2.size() << std::endl;
 
-		// 2. Extraction of the feature descriptors
+		// 2. Extraction of the feature descriptors，提取描述子
 		cv::Mat descriptors1, descriptors2;
-		descriptor->compute(image1,keypoints1,descriptors1);
-		descriptor->compute(image2,keypoints2,descriptors2);
+		descriptor->compute(image1,keypoints1,descriptors1); // 计算描述子1
+		descriptor->compute(image2,keypoints2,descriptors2); // 计算描述子2
 
-		std::cout << "descriptor matrix size: " << descriptors1.rows << " by " << descriptors1.cols << std::endl;
-
-		// 3. Match the two image descriptors
-		//    (optionaly apply some checking method)
+		std::cout << "descriptor1 matrix size: " << descriptors1.rows << "multiplication by " << descriptors1.cols << std::endl;
+		std::cout << "descriptor2 matrix size: " << descriptors2.rows << "multiplication by " << descriptors2.cols << std::endl;
+		// 3. Match the two image descriptors (optionaly apply some checking method)
    
 		// Construction of the matcher with crosscheck 
-		cv::BFMatcher matcher(normType,            //distance measure
-	                          check==CROSSCHECK);  // crosscheck flag
+		// 下面这块是被其他函数调用的entry
+		cv::BFMatcher matcher(normType,check==CROSSCHECK); 
+		//distance measure  // crosscheck flag
                              
 		// vectors of matches
         std::vector<std::vector<cv::DMatch> > matches1;
@@ -317,24 +299,18 @@ class RobustMatcher {
 			matcher.knnMatch(descriptors1,descriptors2, 
 				matches1, // vector of matches (up to 2 per entry) 
 				2);		  // return 2 nearest neighbours
-
 			std::cout << "Number of matched points 1->2: " << matches1.size() << std::endl;
-
 			if (check==BOTHCHECK) {
 				// from image 2 to image 1
 				// based on k nearest neighbours (with k=2)
 				matcher.knnMatch(descriptors2,descriptors1, 
 					matches2, // vector of matches (up to 2 per entry) 
 					2);		  // return 2 nearest neighbours
-
 				std::cout << "Number of matched points 2->1: " << matches2.size() << std::endl;
 			}
-
 		} 
-		
 		// select check method
 		switch (check) {
-
 			case CROSSCHECK:
 				matcher.match(descriptors1,descriptors2,outputMatches);
 				std::cout << "Number of matched points 1->2 (after cross-check): " << outputMatches.size() << std::endl;
@@ -355,6 +331,7 @@ class RobustMatcher {
 		}
 
 		// 4. Validate matches using RANSAC
+		// outputMatches是输入的点云，matches是输出的点云
 		cv::Mat fundamental= ransacTest(outputMatches, keypoints1, keypoints2, matches);
 		std::cout << "Number of matched points (after RANSAC): " << matches.size() << std::endl;
 
