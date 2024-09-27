@@ -1,0 +1,1 @@
+message(a b c) # 输出“abc”
