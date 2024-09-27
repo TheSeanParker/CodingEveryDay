@@ -1,0 +1,10 @@
+set(a "a的值")
+set(b "b的值")
+set(C "C的值")
+set(D "D的值")
+set(E "E的值")
+set(F "F的值")
+
+configure_file(模板.h.in res1.h)
+configure_file(模板.h.in res2.h @ONLY)
+configure_file(模板.h.in res3.h COPYONLY)
