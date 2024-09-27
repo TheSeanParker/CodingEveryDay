@@ -1,0 +1,10 @@
+message("${CMAKE_FIND_PACKAGE_NAME}") # 输出：Custom
+message("${Custom_FIND_REQUIRED}") # 输出：1
+message("${Custom_FIND_VERSION_COMPLETE}") # 输出：2.1...2.3
+message("${Custom_FIND_VERSION}") # 输出：2.1
+message("${Custom_FIND_VERSION_COUNT}") # 输出：2
+message("${Custom_FIND_VERSION_RANGE}") # 输出：2.1...2.3
+message("${Custom_FIND_VERSION_RANGE_MAX}") # 输出：EXCLUDE
+message("${Custom_FIND_VERSION_MIN}") # 输出：2.1
+message("${Custom_FIND_VERSION_MAX}") # 输出：2.3
+message("${Custom_FIND_COMPONENTS}") # 输出：a
