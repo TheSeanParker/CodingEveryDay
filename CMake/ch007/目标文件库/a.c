@@ -1,0 +1,1 @@
+int fa(int a, int b) { return a + b; }
