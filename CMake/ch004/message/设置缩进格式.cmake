@@ -1,0 +1,23 @@
+function(f0)
+    list(APPEND CMAKE_MESSAGE_INDENT "  ")
+    message(STATUS "f0被调用")
+endfunction()
+
+function(f1_1)
+    list(APPEND CMAKE_MESSAGE_INDENT "  ")
+    message(STATUS "f1_1被调用")
+endfunction()
+
+function(f1)
+    list(APPEND CMAKE_MESSAGE_INDENT "  ")
+    message(STATUS "f1被调用")
+    f1_1()
+endfunction()
+
+list(APPEND CMAKE_MESSAGE_INDENT "++")
+message("开始")
+f0()
+f1()
+f0()
+list(POP_BACK CMAKE_MESSAGE_INDENT)
+message("结束")

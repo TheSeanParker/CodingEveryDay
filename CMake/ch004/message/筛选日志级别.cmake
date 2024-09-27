@@ -1,0 +1,7 @@
+message(TRACE "trace")
+message(DEBUG "debug")
+message(VERBOSE "verbose")
+message(STATUS "status")
+message(NOTICE "notice")
+message(WARNING "warning")
+message(SEND_ERROR "error")
