@@ -1,0 +1,25 @@
+# 自行构建的Boost库
+
+BOOST_DIR=C:\boost
+BOOST_LIB_DIR=$(BOOST_DIR)\stage\lib
+
+# 下载安装的预编译Boost库
+
+# BOOST_DIR=C:\boost_prebuilt
+# BOOST_LIB_DIR=$(BOOST_DIR)\lib64-msvc-14.2
+
+CXXFLAGS=/I $(BOOST_DIR) /MD /EHsc
+LINKFLAGS=/LIBPATH:$(BOOST_LIB_DIR)
+
+all: static_boost.exe shared_boost.exe
+
+static_boost.exe: main.cpp 
+    cl libboost_regex-vc142-mt-x64-1_74.lib \
+        main.cpp $(CXXFLAGS) /Fe"static_boost.exe" /link $(LINKFLAGS)
+
+shared_boost.exe: main.cpp 
+    cl boost_regex-vc142-mt-x64-1_74.lib /DBOOST_ALL_NO_LIB \
+        main.cpp $(CXXFLAGS) /Fe"shared_boost.exe" /link $(LINKFLAGS)
+
+clean:
+    del *.obj *.exe

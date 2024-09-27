@@ -1,0 +1,5 @@
+main.exe: main.cpp
+    cl main.cpp /I "C:\boost" /EHsc /Fe"main.exe"
+
+clean:
+    del *.obj *.exe

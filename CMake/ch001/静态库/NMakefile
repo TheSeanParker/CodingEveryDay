@@ -1,0 +1,14 @@
+main.exe: main.obj libab.lib
+	cl main.obj libab.lib /Fe"main.exe"
+
+main.obj: main.c
+	cl -c main.c /Fo"main.obj"
+
+libab.lib: a.obj b.obj
+	lib /out:libab.lib a.obj b.obj
+
+a.obj: a.c
+	cl /c a.c /Fo"a.obj"
+
+b.obj: b.c
+	cl /c b.c /Fo"b.obj"

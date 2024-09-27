@@ -1,0 +1,8 @@
+main.exe: main.obj slow.obj
+	cl /Fe"main.exe" main.obj slow.obj
+
+main.obj: main.cpp
+	cl /c main.cpp /Fo"main.obj" /EHsc
+
+slow.obj: slow.cpp
+	cl /c slow.cpp /Fo"slow.obj"

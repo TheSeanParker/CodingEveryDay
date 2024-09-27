@@ -1,0 +1,1 @@
+﻿const char *msg = "您好，我来自msg.c！";

@@ -1,0 +1,20 @@
+main.exe: main.obj a.lib b.lib
+	cl main.obj a.lib b.lib /Fe"main.exe"
+
+a.lib: a.obj
+	lib /out:a.lib a.obj
+
+b.lib: b.obj
+	lib /out:b.lib b.obj
+
+a.obj: liba/a.cpp
+	cl /c liba/a.cpp /Fo"a.obj"
+
+b.obj: libb/b.cpp
+	cl /c libb/b.cpp /I liba /Fo"b.obj"
+
+main.obj: main.cpp
+	cl /c main.cpp /I liba /I libb /Fo"main.obj"
+	
+clean:
+    del *.obj *.lib *.exe

@@ -1,0 +1,14 @@
+main.exe: main.obj liba.lib
+	cl main.obj liba.lib /Fe"main.exe"
+
+main.obj: main.c
+	cl -c main.c /Fo"main.obj"
+
+liba.lib liba.dll: a.obj liba.def
+	cl a.obj /link /dll /out:liba.dll /def:liba.def
+
+a.obj: a.c
+	cl /c a.c /Fo"a.obj"
+
+clean:
+	del /q *.obj *.dll *.lib *.exp *.ilk *.pdb main.exe
