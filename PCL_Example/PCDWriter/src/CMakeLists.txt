@@ -92,9 +92,9 @@ catkin_package(
   INCLUDE_DIRS
 )
 
-add_executable(main main.cpp )
-target_link_libraries(main ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES} ${Sophus_LIBRARIES} glog gtsam)
-target_include_directories(main PRIVATE ${PYTHON_INCLUDE_DIRS})
+add_executable(PCDWriter main.cpp )
+target_link_libraries(PCDWriter ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES} ${Sophus_LIBRARIES} glog gtsam)
+target_include_directories(PCDWriter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 # add_executable(fastlio_mapping_re src/laserMapping_re.cpp include/ikd-Tree/ikd_Tree.cpp src/preprocess.cpp)
 # target_link_libraries(fastlio_mapping_re ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES} ${Sophus_LIBRARIES} glog gtsam)
