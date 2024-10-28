@@ -9,21 +9,23 @@ int main() {
     {
       std::cout<<"0 容器为空"<<std::endl;
     }
-	for (int i = 1; i < 2; ++i)
-	{
-		vtr.push_back(i);
-	}
-    if (vtr.begin()==vtr.end())
+	// for (int i = 1; i < 2; ++i)
+	// {
+	// 	vtr.push_back(i);
+	// }
+    vtr.push_back(1);
+    vtr.push_back(2);
+    if (vtr.begin()==vtr.end()-1)
     {
-      std::cout<<"1 容器为空"<<std::endl;
+      std::cout<<"1 容器不为空 vtr.begin()==vtr.end()-1 "<<std::endl;
     }
     else
     {
-        std::cout<<"1 容器不为空"<<std::endl;
+        std::cout<<"1 容器为空 vtr.begin()!=vtr.end()-1"<<std::endl;
     }
     
     std::cout<<"*vtr.begin="<<*vtr.begin()<<std::endl;
-    std::cout<<"*vtr.end()="<<*(--vtr.end())<<std::endl;
+    std::cout<<"*vtr.end()="<<*(vtr.end()-1)<<std::endl;
     std::cout<<"*vtr.size()="<<vtr.size()<<std::endl;
     // auto pcl=vtr.end()--;
     // std::cout<<vtr.begin()<<std::endl;
