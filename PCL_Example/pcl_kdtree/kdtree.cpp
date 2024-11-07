@@ -20,26 +20,27 @@ int main()
 
     std::vector<int> indices; // 存储查询近邻点索引
     std::vector<float> distances; // 存储近邻点对应距离的平方
-    PointT point =cloud->points[0]; // 初始化一个查询点
+    // PointT point =cloud->points[1]; // 初始化一个查询点
+    pcl::PointXYZ point= { 0, 0, 0};// 初始化一个查询点
     // 查询距point最近的k个点
-    int k = 10;
+    int k = 2;
     int size = kdtree->nearestKSearch(point, k, indices, distances);
     std::cout << "nearestKSearch point size():=" << size << std::endl;
     std::cout << "***************************************** " << std::endl;
     // 判断一下查询到的第一个点和给定的第一个点,是不是同一个点
     // 下面的for循环最好是使用返回的size，但是用k的话，会出现访问点云点下标超过找到点云点个数的情况
     size_t count=k;
-
-    for (size_t i = 0; i < count; i++)
-    {
-       std::cout << "nearestKSearch  distances["<<i<<"]= " << distances[i]<< std::endl;
-    }
-    std::cout << "***************************************** " << std::endl;
     for (size_t i = 0; i < count; i++)
     {
        std::cout << "nearestKSearch  indices["<<i<<"]= " << indices[i]<< std::endl;
     }
     std::cout << "***************************************** " << std::endl;
+    for (size_t i = 0; i < count; i++)
+    {
+       std::cout << "nearestKSearch  distances["<<i<<"]= " << distances[i]<< std::endl;
+    }
+    std::cout << "***************************************** " << std::endl;
+
     // for (size_t i = 0; i < count; i++)
     // {
     //    std::cout << "nearestKSearch radiusSearchfirst cloud->points[indices["<<i<<"]]= " << cloud->points[indices[i]]<< std::endl;
@@ -50,7 +51,7 @@ int main()
 
     float distances_02=pointDistance(cloud->points[0],cloud->points[indices[2]]);
     std::cout <<setprecision(12)<< "distances_02= " << distances_02<< std::endl;
-
+   
     std::cout << "nearestKSearch point indices(1)= " << indices[1] << std::endl;
     std::cout << "nearestKSearch point indices(2)= " << indices[2] << std::endl;
     // 查询point半径为radius邻域球内的点
