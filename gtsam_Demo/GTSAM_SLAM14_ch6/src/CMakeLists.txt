@@ -8,7 +8,13 @@ set( CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
 
 set(GTSAM_USE_SYSTEM_EIGEN ON)
-
+find_package(GTSAM)
+# find_package(GTSAM REQUIRED QUIET)
+if(GTSAM_FOUND)  
+  message(STATUS "Found GTSAM ${GTSAM_VERSION}")
+else()
+  message(STATUS "GTSAM Not Found")
+endif()
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   message_filters
@@ -49,9 +55,17 @@ catkin_package(
   DEPENDS EIGEN3 PCL 
 )
 
-add_executable(custom_factor src/custom_factor.cpp) # 自定义因子（类似于GPS的一元因子）
-target_link_libraries(custom_factor ${catkin_LIBRARIES}  ${PCL_LIBRARIES} gtsam)
+add_executable(PointRigidTransformationFactor src/PointRigidTransformationFactor.cpp) # 自定义因子（类似于GPS的一元因子）
+target_link_libraries(PointRigidTransformationFactor ${catkin_LIBRARIES}  ${PCL_LIBRARIES} gtsam)
+
+# add_executable(custom_factor src/custom_factor.cpp) # 自定义因子（类似于GPS的一元因子）
+# target_link_libraries(custom_factor ${catkin_LIBRARIES}  ${PCL_LIBRARIES} gtsam)
 
 add_executable(curveFitting src/curveFitting.cpp) # 曲线拟合
 target_link_libraries(curveFitting ${OpenCV_LIBS} ${catkin_LIBRARIES}  ${PCL_LIBRARIES} gtsam Python3::Python Python3::NumPy)
 target_include_directories(curveFitting PRIVATE ${Python3_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
+
+
+add_executable(IcpFactor_gtsam src/IcpFactor_gtsam.cpp) # 自定义因子（类似于GPS的一元因子）
+target_link_libraries(IcpFactor_gtsam ${catkin_LIBRARIES}  ${PCL_LIBRARIES} gtsam)
+
