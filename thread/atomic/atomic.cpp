@@ -36,6 +36,7 @@ int main()
     clock_t finish = clock();
     // 输出结果
     cout << "result:" << total << endl;
+    cout << "result load():" << total.load() << endl;
     cout << "duration:" << finish - start << "ms" << endl;
  
     return 0;
